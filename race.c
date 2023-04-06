@@ -13,7 +13,7 @@
 #endif
 
 int main(int argc, char *argv[]) {
-    // the function has three parameters: name1, name2  and linkdest
+    // the function has three parameters: name1, name2, and linkdest
     if (argc != 4) {
         fprintf(stderr, "Usage: %s name1 name2 linkdest\n", argv[0]);
         exit(EXIT_FAILURE);
@@ -23,14 +23,14 @@ int main(int argc, char *argv[]) {
     int dirfd = open(".", O_DIRECTORY|O_CLOEXEC);
     if (dirfd < 0)
         exit(EXIT_FAILURE);
-    // 1. create a directory named name1
+    // 1. Create a directory named name1
     if (mkdir(name1, 0755) < 0)
         perror("mkdir failed");
-    // 2. create a  symlink using the name: name2 to pointed to linkdest
+    // 2. Create a symlink named name2 that points to linkdest
     if (symlink(linkdest, name2) < 0)
         perror("symlink failed");
-    // 3. in the while loop, swap the name of name1 an name2. 
-    //    name1 and name2 are going to alternately point to linkdest
+    // 3. In the while loop, swap the values of name1 an name2. 
+    //    As a result, name1 and name2 will alternately point to linkdest
     while (1)
         syscall(SYS_renameat2, dirfd, name1, dirfd, name2, RENAME_EXCHANGE);
 }

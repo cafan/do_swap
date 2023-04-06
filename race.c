@@ -26,7 +26,7 @@ int main(int argc, char *argv[]) {
     // 1. create a directory named name1
     if (mkdir(name1, 0755) < 0)
         perror("mkdir failed");
-    // 2. create a  symlink use the name name2 pointed to linkdest
+    // 2. create a  symlink using the name: name2 to pointed to linkdest
     if (symlink(linkdest, name2) < 0)
         perror("symlink failed");
     // 3. in the while loop, swap the name of name1 an name2. 
